@@ -1,12 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ReWriteBtn = styled.button`
+const TodoItemTemplate = styled.div`
+    padding: 10px;
+    float:left;
+`
+const UpdateButton = styled.button`
     border: none;
     background: none;
     color: #498EAF;
 `
-const DeleteWriteBtn = styled.button`
+const DeleteButton = styled.button`
     border: none;
     background: none;
     color: #631F16;
@@ -14,10 +18,8 @@ const DeleteWriteBtn = styled.button`
 
 export default function TodoItem() {
     return(
-        <>
-        <div>
-        <ReWriteBtn> 수정 </ReWriteBtn><DeleteWriteBtn> 삭제 </DeleteWriteBtn>
-        </div>
-        </>
+        <TodoItemTemplate>
+        바보<UpdateButton> 수정 </UpdateButton><DeleteButton> 삭제 </DeleteButton>
+        </TodoItemTemplate>
     )
 }

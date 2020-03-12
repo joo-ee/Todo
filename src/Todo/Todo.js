@@ -28,11 +28,9 @@ const TodoTitle = styled.div`
 export default function Todo() {
 
     return(
-        <>
             <TodoTemplate>
             <TodoTitle>Todo List</TodoTitle>
-                <TodoItem></TodoItem>
+                <TodoItem/>
             </TodoTemplate>
-        </>
     )
 }
