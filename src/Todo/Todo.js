@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import TodoItem from './Todo-item'
+import TodoInput from './TodoInput'
 
 const TodoTemplate = styled.div`
   text-align: center;
@@ -28,6 +29,7 @@ export default function Todo() {
   return (
     <TodoTemplate>
       <TodoTitle>Todo List</TodoTitle>
+      <TodoInput />
       <TodoItem />
     </TodoTemplate>
   )
