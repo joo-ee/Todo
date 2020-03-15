@@ -14,20 +14,24 @@ const UpdateButton = styled.button`
   background: none;
   color: #498eaf;
 
-  padding-left: 14rem; /*이렇게 조절하는 게 맞는 건가*/
+  float: right;
+  margin-right: 1rem;
 `
 const DeleteButton = styled.button`
   border: none;
   background: none;
   color: #631f16;
+
+  float: right;
+  margin-right: 1rem; /*이렇게 조절하는 게 맞나*/
 `
 
 export default function TodoList({ todo }) {
   console.log(todo)
   return (
     <TodoItemTemplate>
-      멍청이 <UpdateButton> 수정 </UpdateButton>
-      <DeleteButton> 삭제 </DeleteButton>
+      {todo} <DeleteButton> 삭제 </DeleteButton>
+      <UpdateButton> 수정 </UpdateButton>
     </TodoItemTemplate>
   )
 }
