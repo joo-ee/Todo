@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TodoItem from './Todo-item'
-import TodoInput from './TodoInput'
+import TodoList from './Todo-list'
+import TodoInput from './Todo-input'
+import fetch from 'isomorphic-fetch'
 
 const TodoTemplate = styled.div`
   text-align: center;
@@ -26,11 +27,22 @@ const TodoTitle = styled.div`
 `
 
 export default function Todo() {
+  const [todo, setTodo] = useState([])
+  async function getTodo() {
+    const response = await fetch('/box_4f93272b1bd791caa49d')
+    const result = await response.json()
+    setTodo(result)
+  }
+
+  useEffect(() => {
+    getTodo()
+  }, [])
+
   return (
     <TodoTemplate>
       <TodoTitle>Todo List</TodoTitle>
       <TodoInput />
-      <TodoItem />
+      <TodoList todo={todo}/>
     </TodoTemplate>
   )
 }

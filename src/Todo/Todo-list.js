@@ -22,7 +22,8 @@ const DeleteButton = styled.button`
   color: #631f16;
 `
 
-export default function TodoItem() {
+export default function TodoList({ todo }) {
+  console.log(todo)
   return (
     <TodoItemTemplate>
       멍청이 <UpdateButton> 수정 </UpdateButton>
