@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import TodoList from './Todo-list'
 import TodoInput from './Todo-input'
 import fetch from 'isomorphic-fetch'
+import { getTodo } from '../services/todo'
 
 const TodoTemplate = styled.div`
   text-align: center;
@@ -25,21 +26,19 @@ const TodoTitle = styled.div`
 
 export default function Todo() {
   const [todo, setTodo] = useState([])
-  async function getTodo() {
-    const response = await fetch('/box_4f93272b1bd791caa49d')
-    const result = await response.json()
-    setTodo(result)
-  }
 
   useEffect(() => {
-    getTodo()
+    async function FetchData() {
+      setTodo(await getTodo())
+    }
+    FetchData()
   }, [])
 
   return (
     <TodoTemplate>
       <TodoTitle>Todo List</TodoTitle>
-      <TodoInput />
-      <TodoList todo={todo}/>
+      <TodoInput afterInsert={getTodo} />
+      <TodoList todo={todo} afterDelete={getTodo} />
       {/* {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))} */}
     </TodoTemplate>
   )
