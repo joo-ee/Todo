@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import {saveTodo} from "../services/todo"
+
+import fetch from 'isomorphic-fetch'
 
 const Input = styled.input`
   padding: 10px;
@@ -11,20 +14,25 @@ const Input = styled.input`
   }
 `
 
-export default function TodoInput() {
+export default function TodoInput({ afterInsert }) {
   const [text, setText] = useState(
     '',
   ) /*text 값은 state의 값, setText는 state 값 바꿀 때 쓰는 함수, useState(기본값)*/
 
   const onChange = (e) => setText(e.target.value)
 
-  const onEnter = (e) => {
+  const onEnter = async (e) => {
     if (e.key === 'Enter') {
       const enterValue = e.target.value
       if (enterValue.trim()) {
         /*enterValue.trim()이 " " => "" , "" => "" 이기 때문 ("" falsy)*/
-        console.log(enterValue)
-        setText('') /*setText로 초기화해야 함*/
+        /*저장을 한다!*/
+        // console.log(enterValue)
+        const result = await saveTodo(enterValue)
+        if (result) {
+          await afterInsert()
+          setText('') /*setText로 초기화해야 함*/
+        }
       }
     }
   }
