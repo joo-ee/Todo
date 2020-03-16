@@ -39,7 +39,7 @@ export default function Todo() {
       <TodoTemplate>
         <TodoTitle>Todo List</TodoTitle>
         <TodoInput />
-        {todo.map((todo, index) => (<TodoList key={index} todo={todo.todo}/>))}
+        {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))}
       </TodoTemplate>
     )
   }

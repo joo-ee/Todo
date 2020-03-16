@@ -26,11 +26,10 @@ const DeleteButton = styled.button`
   margin-right: 1rem; /*이렇게 조절하는 게 맞나*/
 `
 
-export default function TodoList({ todo }) {
-  console.log(todo)
+export default function TodoList({ todo, index }) {
   return (
     <TodoItemTemplate>
-      {todo} <DeleteButton> 삭제 </DeleteButton>
+      {index+1}. {todo} <DeleteButton> 삭제 </DeleteButton>
       <UpdateButton> 수정 </UpdateButton>
     </TodoItemTemplate>
   )
