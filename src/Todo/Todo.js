@@ -24,22 +24,23 @@ const TodoTitle = styled.div`
 `
 
 export default function Todo() {
-    const [todo, setTodo] = useState([])
-    async function getTodo() {
-      const response = await fetch('/box_4f93272b1bd791caa49d')
-      const result = await response.json()
-      setTodo(result)
-    }
-  
-    useEffect(() => {
-      getTodo()
-    }, [])
-  
-    return (
-      <TodoTemplate>
-        <TodoTitle>Todo List</TodoTitle>
-        <TodoInput />
-        {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))}
-      </TodoTemplate>
-    )
+  const [todo, setTodo] = useState([])
+  async function getTodo() {
+    const response = await fetch('/box_4f93272b1bd791caa49d')
+    const result = await response.json()
+    setTodo(result)
   }
+
+  useEffect(() => {
+    getTodo()
+  }, [])
+
+  return (
+    <TodoTemplate>
+      <TodoTitle>Todo List</TodoTitle>
+      <TodoInput />
+      <TodoList todo={todo}/>
+      {/* {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))} */}
+    </TodoTemplate>
+  )
+}

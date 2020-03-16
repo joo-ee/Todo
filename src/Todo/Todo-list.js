@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
 
 const TodoItemTemplate = styled.div`
@@ -26,11 +26,15 @@ const DeleteButton = styled.button`
   margin-right: 1rem; /*이렇게 조절하는 게 맞나*/
 `
 
-export default function TodoList({ todo, index }) {
+export default function TodoList({ todo }) {
   return (
-    <TodoItemTemplate>
-      {index+1}. {todo} <DeleteButton> 삭제 </DeleteButton>
-      <UpdateButton> 수정 </UpdateButton>
-    </TodoItemTemplate>
+    <>
+      {todo.map((todoItem, index) => (
+        <TodoItemTemplate key={index}>
+          {index + 1}. {todoItem.todo} <DeleteButton> 삭제 </DeleteButton>
+          <UpdateButton> 수정 </UpdateButton>{' '}
+        </TodoItemTemplate>
+      ))}
+    </>
   )
 }
