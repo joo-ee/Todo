@@ -24,16 +24,13 @@ export async function deleteTodo(id) {
   return response.ok
 }
 
-export async function updateTodo(id, value) {
-  const response = await fetch(`${url}/${id}`, {
+export async function updateTodo(todo) {
+  const response = await fetch(`${url}/${todo._id}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({
-      todo: value,
-      name: '주히',
-    }),
+    body: JSON.stringify(todo),
   })
   return response.ok
 }

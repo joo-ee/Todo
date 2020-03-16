@@ -37,8 +37,8 @@ export default function Todo() {
   return (
     <TodoTemplate>
       <TodoTitle>Todo List</TodoTitle>
-      <TodoInput afterInsert={getTodo} />
-      <TodoList todo={todo} afterDelete={getTodo} />
+      <TodoInput />
+      <TodoList todo={todo} />
       {/* {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))} */}
     </TodoTemplate>
   )
