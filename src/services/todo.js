@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch'
+
 const url = '/box_4f93272b1bd791caa49d'
 
 export async function getTodo() {

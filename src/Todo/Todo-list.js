@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+
 import { deleteTodo, updateTodo } from '../services/todo'
+import UpdatePopup from '../components/update-popup'
 
 const TodoItemTemplate = styled.div`
   padding: 1rem;
@@ -26,18 +28,24 @@ const DeleteButton = styled.button`
   float: right;
   margin-right: 1rem; /*이렇게 조절하는 게 맞나*/
 `
-const TodoSpan = styled.span`
-  cursor: pointer;
-  text-decoration: ${(props) =>
-    props.status === 'done' ? 'line-through' : 'underline'};
+const NumberSpan = styled.span`
+  float: left;
+  margin-left: 1rem;
+
+  color: ${(props) =>
+    props.status === 'done' ? 'rgb(150, 150, 150)' : 'black'};
 `
 
-export default function TodoList({ todo, afterDelete }) {
-  const onDeleteClick = async (id) => {
-    if (await deleteTodo(id)) {
-      afterDelete()
-    }
-  }
+const TodoSpan = styled.span`
+  cursor: pointer;
+  color: ${(props) =>
+    props.status === 'done' ? 'rgb(150, 150, 150)' : 'black'};
+  text-decoration: ${(props) =>
+    props.status === 'done' ? 'line-through' : 'none'};
+`
+
+export default function TodoList({ todo, setTodo }) {
+  const [popupTodo, setPopupTodo] = useState(undefined)
 
   const clickTodo = async (todoItem) => {
     if (todoItem.status) {
@@ -46,7 +54,13 @@ export default function TodoList({ todo, afterDelete }) {
       todoItem['status'] = 'done'
     }
     if (await updateTodo(todoItem)) {
-      afterDelete()
+      setTodo()
+    }
+  }
+
+  const onDeleteClick = async (id) => {
+    if (await deleteTodo(id)) {
+      setTodo()
     }
   }
 
@@ -54,7 +68,7 @@ export default function TodoList({ todo, afterDelete }) {
     <>
       {todo.map((todoItem, index) => (
         <TodoItemTemplate key={index}>
-          <span>{index + 1}. </span>{' '}
+          <NumberSpan status={todoItem.status}>{index + 1}.</NumberSpan>
           <TodoSpan
             status={todoItem.status}
             onClick={async () => await clickTodo(todoItem)}
@@ -62,12 +76,20 @@ export default function TodoList({ todo, afterDelete }) {
             {todoItem.todo}
           </TodoSpan>
           <DeleteButton onClick={() => onDeleteClick(todoItem._id)}>
-            {' '}
-            삭제{' '}
+            삭제
           </DeleteButton>
-          <UpdateButton> 수정 </UpdateButton>{' '}
+          <UpdateButton onClick={() => setPopupTodo(todoItem)}>
+            수정
+          </UpdateButton>
         </TodoItemTemplate>
       ))}
+      <UpdatePopup
+        todo={popupTodo}
+        setTodo={() => {
+          setTodo()
+          setPopupTodo(undefined)
+        }}
+      />
     </>
   )
 }
