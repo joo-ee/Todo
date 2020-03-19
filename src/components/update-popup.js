@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup'
-import { updateTodo, getTodo } from '../services/todo'
+import { updateTodo } from '../services/todo-services'
+import styled from 'styled-components'
 
-export default function UpdatePopup({ todo, setTodo }) {
+const PopupInput = styled.input`
+  flex: 1;
+  padding: 7px;
+  outline: none;
+  border: none;
+  border-bottom: solid 1px rgb(226, 226, 226);
+`
+const PopupButton = styled.button`
+  padding: 10px;
+  border: none;
+  background: none;
+  color: #498eaf;
+  float: center;
+`
+
+export default function UpdatePopup({ todo, getTodo }) {
   const [inputTodo, setInputTodo] = useState('')
 
   useEffect(() => {
@@ -15,7 +31,7 @@ export default function UpdatePopup({ todo, setTodo }) {
     newTodo.todo = inputTodo
 
     if (await updateTodo(newTodo)) {
-      setTodo()
+      getTodo()
     }
   }
 
@@ -23,7 +39,7 @@ export default function UpdatePopup({ todo, setTodo }) {
     <>
       <Popup open={todo} position="right center">
         <div>
-          <input
+          <PopupInput
             value={inputTodo}
             onChange={(e) => setInputTodo(e.target.value)}
             onKeyPress={(e) => {
@@ -32,7 +48,9 @@ export default function UpdatePopup({ todo, setTodo }) {
               }
             }}
           />
-          <button onClick={updateNewTodo}>수정하기</button>
+        </div>
+        <div>
+          <PopupButton onClick={updateNewTodo}>완료</PopupButton>
         </div>
       </Popup>
     </>

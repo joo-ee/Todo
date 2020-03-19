@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TodoList from './Todo-list'
-import TodoInput from './Todo-input'
+import TodoList from './todo-list'
+import TodoInput from './todo-input'
 import Page from 'react-page-loading'
 
-import { getTodo } from '../services/todo'
+import { getTodo } from '../services/todo-services'
 
 const TodoTemplate = styled.div`
   text-align: center;
@@ -56,13 +56,13 @@ export default function Todo() {
       <TodoTemplate>
         <TodoTitle>Todo List</TodoTitle>
         <TodoInput />
-        <TodoList todo={todo} setTodo={FetchData} />
+        <TodoList todo={todo} getTodo={FetchData} />
         {/* {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))} */}
       </TodoTemplate>
       {loading ? (
-      <LoadingOverLay className="test">
-        <Page loader={'bar'} color={'#A9A9A9'} size={4} />
-      </LoadingOverLay>
+        <LoadingOverLay className="test">
+          <Page loader={'bar'} color={'#A9A9A9'} size={4} />
+        </LoadingOverLay>
       ) : null}
     </>
   )
