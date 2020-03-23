@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TodoList from './Todo-list'
-import TodoInput from './Todo-input'
-import fetch from 'isomorphic-fetch'
+import TodoList from './todo-list'
+import TodoInput from './todo-input'
+import Page from 'react-page-loading'
+
+import { getTodo } from '../services/todo-services'
 
 const TodoTemplate = styled.div`
   text-align: center;
@@ -23,24 +25,45 @@ const TodoTitle = styled.div`
   background: #e5bb4b;
 `
 
+const LoadingOverLay = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+`
+
 export default function Todo() {
   const [todo, setTodo] = useState([])
-  async function getTodo() {
-    const response = await fetch('/box_4f93272b1bd791caa49d')
-    const result = await response.json()
-    setTodo(result)
+  const [loading, setLoading] = useState(true)
+
+  async function FetchData() {
+    setLoading(true)
+    setTodo(await getTodo())
+    setLoading(false)
   }
 
   useEffect(() => {
-    getTodo()
+    FetchData()
   }, [])
 
   return (
-    <TodoTemplate>
-      <TodoTitle>Todo List</TodoTitle>
-      <TodoInput />
-      <TodoList todo={todo}/>
-      {/* {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))} */}
-    </TodoTemplate>
+    <>
+      <TodoTemplate>
+        <TodoTitle>Todo List</TodoTitle>
+        <TodoInput getTodo={FetchData}/>
+        <TodoList todo={todo} getTodo={FetchData} />
+        {/* {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))} */}
+      </TodoTemplate>
+      {loading ? (
+        <LoadingOverLay className="test">
+          <Page loader={'bar'} color={'#A9A9A9'} size={4} />
+        </LoadingOverLay>
+      ) : null}
+    </>
   )
 }

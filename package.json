@@ -9,7 +9,9 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "moment": "2.24.0",
+    "react-time": "4.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,5 +34,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://jsonbox.io/"
+  "proxy": "https://jsonbox.io/",
+  "devDependencies": {
+    "react-time-format": "0.0.5"
+  }
 }
