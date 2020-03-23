@@ -1,5 +1,5 @@
 import React from 'react'
-import Todo from './Todo/todo'
+import Todo from './app/todo'
 
 import './style.css'
 

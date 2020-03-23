@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
-import {saveTodo} from "../services/todo"
 
-import fetch from 'isomorphic-fetch'
-
-import {saveTodo} from "../services/todo-services"
+import { saveTodo } from '../services/todo-services'
+import { UserContext } from '../context/user-context'
 
 const Input = styled.input`
   padding: 10px;
@@ -20,6 +18,8 @@ export default function TodoInput({ getTodo }) {
   const [text, setText] = useState(
     '',
   ) /*text 값은 state의 값, setText는 state 값 바꿀 때 쓰는 함수, useState(기본값)*/
+
+  const contextValue = useContext(UserContext)
 
   const onChange = (e) => setText(e.target.value)
 
@@ -42,7 +42,9 @@ export default function TodoInput({ getTodo }) {
   return (
     <Input
       type="text"
-      placeholder="오늘은 무엇을 해야 하나요?"
+      placeholder={`오늘은 무엇을 해야 하나요? ${contextValue.time.format(
+        'A hh:mm',
+      )}`}
       value={text}
       onChange={onChange}
       onKeyPress={onEnter}
