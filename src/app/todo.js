@@ -5,6 +5,8 @@ import TodoInput from './todo-input'
 import Page from 'react-page-loading'
 
 import { getTodo } from '../services/todo-services'
+import { UserContext } from '../context/user-context'
+import moment from 'moment'
 
 const TodoTemplate = styled.div`
   text-align: center;
@@ -51,14 +53,19 @@ export default function Todo() {
     FetchData()
   }, [])
 
+  const contextValue = {
+    time: moment(),
+  }
+
   return (
     <>
-      <TodoTemplate>
-        <TodoTitle>Todo List</TodoTitle>
-        <TodoInput getTodo={FetchData}/>
-        <TodoList todo={todo} getTodo={FetchData} />
-        {/* {todo.map((todo, index) => (<TodoList key={index} index={index} todo={todo.todo}/>))} */}
-      </TodoTemplate>
+      <UserContext.Provider value={contextValue}>
+        <TodoTemplate>
+          <TodoTitle>Todo List</TodoTitle>
+          <TodoInput getTodo={FetchData} />
+          <TodoList todo={todo} getTodo={FetchData} />
+        </TodoTemplate>
+      </UserContext.Provider>
       {loading ? (
         <LoadingOverLay className="test">
           <Page loader={'bar'} color={'#A9A9A9'} size={4} />
