@@ -4,7 +4,6 @@ import { updateTodo } from '../services/todo-services'
 import styled from 'styled-components'
 
 const PopupInput = styled.input`
-  flex: 1;
   padding: 7px;
   outline: none;
   border: none;
@@ -31,7 +30,7 @@ const CloseButton = styled.a`
   border: 1px solid #cfcece;
 `
 
-export default function UpdatePopup({ todo, getTodo }) {
+export default function UpdatePopup({ todo, getTodo, clearTodo }) {
   const [inputTodo, setInputTodo] = useState('')
 
   useEffect(() => {
@@ -51,28 +50,22 @@ export default function UpdatePopup({ todo, getTodo }) {
   /*수정 버튼 누르고 닫기 버튼을 눌렀을 때 다시 안 눌리는 문제*/
 
   return (
-    <>
-      <Popup open={todo} position="right center">
-        {(close) => (
-          <>
-            <div>
-              <CloseButton onClick={close}>&times;</CloseButton>
-              <PopupInput
-                value={inputTodo}
-                onChange={(e) => setInputTodo(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    updateNewTodo()
-                  }
-                }}
-              />
-            </div>
-            <div>
-              <PopupButton onClick={updateNewTodo}>완료</PopupButton>
-            </div>
-          </>
-        )}
-      </Popup>
-    </>
+    <Popup open={todo} position="right center">
+      <CloseButton onClick={clearTodo}>&times;</CloseButton>
+      <div>
+        <PopupInput
+          value={inputTodo}
+          onChange={(e) => setInputTodo(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              updateNewTodo()
+            }
+          }}
+        />
+      </div>
+      <div>
+        <PopupButton onClick={updateNewTodo}>완료</PopupButton>
+      </div>
+    </Popup>
   )
 }

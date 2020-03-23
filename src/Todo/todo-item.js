@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { updateTodo, deleteTodo } from '../services/todo-services'
-
-import Moment from 'react-moment'
-import Time from 'react-time-format'
+import moment from 'moment'
 
 const TodoItemTemplate = styled.div`
   padding: 1rem;
@@ -66,13 +64,6 @@ export default function TodoItem({ getTodo, setPopupTodo, todoItem, index }) {
     }
   }
 
-  function convertDateTime(date) {
-    // const todoDate = date.toString()
-    return new Date(date).toLocaleString('ko-KR', {
-      timeZone: 'Asia/Seoul',
-    })
-  }
-
   return (
     <TodoItemTemplate key={index}>
       <NumberSpan status={todoItem.status}>{index + 1}.</NumberSpan>
@@ -91,19 +82,8 @@ export default function TodoItem({ getTodo, setPopupTodo, todoItem, index }) {
         삭제
       </DeleteButton>
       <UpdateButton onClick={() => setPopupTodo(todoItem)}>수정</UpdateButton>
-
-      {/*시간 넣기*/}
       <TimeSpan>
-        {/* <Moment format="HH:mm:ss"> */}
-        <Time
-          value={
-            convertDateTime(todoItem._updatedOn)
-              ? convertDateTime(todoItem._updatedOn)
-              : convertDateTime(todoItem._createdOn)
-          }
-          format="HH:mm:ss"
-        />
-        {/* </Moment> */}
+        {moment(todoItem._updatedOn || todoItem._createdOn).format('HH:mm:ss')}
       </TimeSpan>
     </TodoItemTemplate>
   )

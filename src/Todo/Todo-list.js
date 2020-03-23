@@ -22,6 +22,7 @@ export default function TodoList({ todo, getTodo }) {
           getTodo()
           setPopupTodo(undefined)
         }}
+        clearTodo={() => setPopupTodo(undefined)}
       />
     </>
   )
