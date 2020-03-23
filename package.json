@@ -6,9 +6,13 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.24.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-page-loading": "^1.0.2",
     "react-scripts": "3.4.0",
+    "reactjs-popup": "^1.5.0",
     "styled-components": "^5.0.1"
   },
   "scripts": {
@@ -32,5 +36,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://jsonbox.io/"
+  "proxy": "https://jsonbox.io/",
+  "devDependencies": {
+    "react-time-format": "0.0.5"
+  }
 }

@@ -4,6 +4,8 @@ import {saveTodo} from "../services/todo"
 
 import fetch from 'isomorphic-fetch'
 
+import {saveTodo} from "../services/todo-services"
+
 const Input = styled.input`
   padding: 10px;
   outline: none;
@@ -14,7 +16,7 @@ const Input = styled.input`
   }
 `
 
-export default function TodoInput({ afterInsert }) {
+export default function TodoInput({ getTodo }) {
   const [text, setText] = useState(
     '',
   ) /*text 값은 state의 값, setText는 state 값 바꿀 때 쓰는 함수, useState(기본값)*/
@@ -30,7 +32,7 @@ export default function TodoInput({ afterInsert }) {
         // console.log(enterValue)
         const result = await saveTodo(enterValue)
         if (result) {
-          await afterInsert()
+          await getTodo()
           setText('') /*setText로 초기화해야 함*/
         }
       }
