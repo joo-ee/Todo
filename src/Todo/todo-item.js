@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { updateTodo, deleteTodo } from '../services/todo-services'
+import Moment from 'react-moment'
 
 const TodoItemTemplate = styled.div`
   padding: 1rem;
@@ -38,13 +39,15 @@ const TodoSpan = styled.span`
     props.status === 'done' ? 'line-through' : 'none'};
 `
 
-export default function TodoItem({
-  getTodo,
-  setPopupTodo,
-  todoItem,
-  index,
-}) {
-  const clickTodo = async (todoItem) => {
+const TimeSpan = styled.span`
+  font-size: x-small;
+  color: rgb(150, 150, 150);
+  float: right;
+  margin-right: 1rem;
+`
+
+export default function TodoItem({ getTodo, setPopupTodo, todoItem, index }) {
+  const finishTodo = async (todoItem) => {
     if (todoItem.status) {
       delete todoItem.status
     } else {
@@ -61,19 +64,36 @@ export default function TodoItem({
     }
   }
 
+  function convertDateTime(date) {
+    console.log(date)
+    return new Date(date).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+  }
+
   return (
     <TodoItemTemplate key={index}>
       <NumberSpan status={todoItem.status}>{index + 1}.</NumberSpan>
       <TodoSpan
         status={todoItem.status}
-        onClick={async () => await clickTodo(todoItem)}
+        onClick={async () => await finishTodo(todoItem)}
       >
         {todoItem.todo}
       </TodoSpan>
-      <DeleteButton onClick={() => onDeleteClick(todoItem._id)}>
+      <DeleteButton
+        onClick={() => {
+          if (window.confirm(`${index + 1}번 할일을 삭제하시겠습니까?`))
+            onDeleteClick(todoItem._id)
+        }}
+      >
         삭제
       </DeleteButton>
       <UpdateButton onClick={() => setPopupTodo(todoItem)}>수정</UpdateButton>
+      <TimeSpan>
+        <Moment format="HH:mm:ss">
+          {convertDateTime(todoItem._updatedOn)
+            ? convertDateTime(todoItem._updatedOn)
+            : convertDateTime(todoItem._createdOn)}
+        </Moment>
+      </TimeSpan>
     </TodoItemTemplate>
   )
 }

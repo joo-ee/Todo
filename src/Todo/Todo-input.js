@@ -29,6 +29,8 @@ export default function TodoInput({ afterInsert }) {
         const result = await saveTodo(enterValue)
         if (result) {
           await afterInsert()
+          /*afterInsert() 질문하기*/
+
           setText('') /*setText로 초기화해야 함*/
         }
       }
