@@ -6,6 +6,7 @@ module.exports = function(app) {
     createProxyMiddleware({
       target: 'https://jsonbox.io/',
       changeOrigin: true,
+      pathRewrite: { '^/api': '' },
     }),
   )
 }
