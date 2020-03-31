@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-const url = '/box_4f93272b1bd791caa49d'
+const url = `/api/box_4f93272b1bd791caa49d`
 
 export async function getTodo() {
   const response = await fetch(url)
