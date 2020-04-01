@@ -37,8 +37,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://jsonbox.io/",
-  "devDependencies": {
-    "react-time-format": "0.0.5"
-  }
+  "proxy": "https://jsonbox.io/"
 }
